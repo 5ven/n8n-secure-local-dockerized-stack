@@ -1,0 +1,16 @@
+# Ignore the environment file containing secrets
+/.env
+
+# Ignore Docker data volumes
+# These are generated at runtime and contain user data.
+/n8n_data/
+/postgres_data/
+
+# Ignore all certificate files inside the certs directory
+# They are sensitive and specific to the local machine.
+/certs/*
+
+# --- EXCEPTIONS ---
+# The ! negates the previous rule for this specific file.
+# We keep this file to ensure the 'certs' directory is created on clone.
+!/certs/.gitkeep

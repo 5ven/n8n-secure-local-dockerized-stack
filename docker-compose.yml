@@ -1,0 +1,47 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: n8n_proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./certs:/etc/nginx/certs
+    depends_on:
+      - n8n
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    restart: always
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=db
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=${POSTGRES_DB}
+      - DB_POSTGRESDB_USER=${POSTGRES_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+      - N8N_HOST=${N8N_HOST}
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+    depends_on:
+      - db
+    user: "${PUID}:${PGID}"
+
+  db:
+    image: postgres:15
+    container_name: n8n_db
+    restart: always
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+      
+volumes:
+  n8n_data:
+  postgres_data:
