@@ -25,6 +25,8 @@ services:
       - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
       - N8N_HOST=${N8N_HOST}
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+      - N8N_EDITOR_BASE_URL=${N8N_EDITOR_BASE_URL}
+      - WEBHOOK_URL=${WEBHOOK_URL}
     volumes:
       - ./n8n_data:/home/node/.n8n
     depends_on:

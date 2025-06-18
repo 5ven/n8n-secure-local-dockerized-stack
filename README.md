@@ -86,6 +86,8 @@ POSTGRES_PASSWORD=YOUR_SUPER_SECRET_PASSWORD
 # The public-facing hostname for n8n
 N8N_HOST=n8n
 GENERIC_TIMEZONE=Europe/London
+N8N_EDITOR_BASE_URL=https://thebaseurl.domain
+WEBHOOK_URL=https://thebaseurl.domain
 
 # --- Docker Permissions ---
 # User and Group ID for the n8n container to avoid permission issues
